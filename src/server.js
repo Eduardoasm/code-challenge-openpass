@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 async function initServer() {
-  let connection: typeof mongoose | null = null;
+  let connection = null;
 
   try {
     connection = await mongoose
@@ -25,7 +25,6 @@ async function initServer() {
     app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);
     });
-
   } catch (error) {
     if (connection) {
       connection.connection.close();

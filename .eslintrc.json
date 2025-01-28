@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "standard"
+  ],
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "no-undef": "warn",
+    "space-before-function-paren": "off",
+    "semi": [
+      "warn",
+      "always"
+    ]
+  }
+}
