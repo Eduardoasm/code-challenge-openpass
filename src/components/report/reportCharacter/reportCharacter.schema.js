@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-export const characterSchema = new Schema(
+export const reportCharacterSchema = new Schema(
   {
     characterId: {
       type: Number

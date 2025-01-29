@@ -11,7 +11,7 @@ class DragonballApiService {
         params: { race, affiliation }
       });
 
-      console.log('info: characters obtained');
+      console.log('Info: characters obtained from dragon ball api');
 
       return data;
     } catch (error) {
@@ -21,7 +21,6 @@ class DragonballApiService {
 
   async getPlanetInfo(planetId) {
     try {
-      console.log('hola');
       const { data } = await axios.get(`${this.apiUrl}api/planets/${planetId}`);
       console.log('info: planets obtained');
       return data;

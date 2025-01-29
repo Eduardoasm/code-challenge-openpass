@@ -1,8 +1,5 @@
-// import 'module-alias/register.js';
-import express from 'express';
 import mongoose from 'mongoose';
-import characterRouter from './components/character/character.routes.js';
-import reportRouter from './components/report/report/report.routes.js';
+import app from './app.js';
 
 async function initServer() {
   let connection = null;
@@ -14,7 +11,7 @@ async function initServer() {
         useUnifiedTopology: true
       })
       .then((connection) => {
-        console.log('Connected to MongoDB');
+        console.log('Info: Connected to MongoDB');
         return connection;
       });
 
@@ -22,17 +19,8 @@ async function initServer() {
 
     const PORT = 3000;
 
-    const app = express();
-
-    app.get('/', (req, res) => {
-      res.send('Hello World!');
-    });
-
-    app.use('/characters', characterRouter);
-    app.use('/report', reportRouter);
-
     app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}`);
+      console.log(`Info: Server is running on http://localhost:${PORT}`);
     });
   } catch (error) {
     if (connection) {

@@ -6,19 +6,27 @@ class ReportService {
     this.reportModel = reportModel;
   }
 
+  async createReport(data) {
+    return Report.create(data)
+  }
+
   async getReportByPlanetId(planetId) {
+    console.log(`Info: Get report for Planet ID: ${planetId}`);
     try {
       let planetReport = await Report.findOne({ planetId });
 
       if (!planetReport) {
         const planetInfo = await DragonBallApiService.getPlanetInfo(planetId);
         const planetParseData = parseData(planetInfo);
+        console.log(`Info: Creating report for Planet ID: ${planetId}`);
 
-        planetReport = await Report.create({
+        planetReport = await this.createReport({
           planetId: planetInfo.id,
           name: planetInfo.name,
           affiliationReport: planetParseData
-        });
+        })
+
+        console.log(`Debug: Report created successfully with ID: ${planetReport._id}`);
       }
 
       return planetReport;

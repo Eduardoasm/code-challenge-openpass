@@ -5,7 +5,8 @@
   ],
   "env": {
     "node": true,
-    "mocha": true
+    "jest/globals": true,
+    "jest": true
   },
   "rules": {
     "no-undef": "warn",

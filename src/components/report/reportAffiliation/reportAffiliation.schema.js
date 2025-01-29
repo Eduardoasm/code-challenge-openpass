@@ -1,13 +1,13 @@
 import { Schema } from 'mongoose';
-import { characterSchema } from '../character/character.schema.js';
+import { reportCharacterSchema } from '../reportCharacter/reportCharacter.schema.js';
 
-export const affiliationReportSchema = new Schema(
+export const reportAffiliationSchema = new Schema(
   {
     affiliation: {
       type: String
     },
     characters: {
-      type: [characterSchema],
+      type: [reportCharacterSchema],
       default: []
     }
   },

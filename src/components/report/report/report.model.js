@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { affiliationReportSchema } from '../affiliationReport/affiliationReport.schema.js';
+import { reportAffiliationSchema } from '../reportAffiliation/reportAffiliation.schema.js';
 
 export const reportSchema = new Schema(
   {
@@ -14,7 +14,7 @@ export const reportSchema = new Schema(
       unique: true
     },
     affiliationReport: {
-      type: [affiliationReportSchema],
+      type: [reportAffiliationSchema],
       default: []
     },
     active: {
