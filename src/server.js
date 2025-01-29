@@ -1,3 +1,4 @@
+import { EnvConfig } from './config/env.js';
 import mongoose from 'mongoose';
 import app from './app.js';
 
@@ -6,7 +7,7 @@ async function initServer() {
 
   try {
     connection = await mongoose
-      .connect('mongodb+srv://challenge-open-pass:challenge123@cluster0.k7ja3.mongodb.net', {
+      .connect(EnvConfig().MONGO_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true
       })
@@ -17,7 +18,7 @@ async function initServer() {
 
     mongoose.connection.on('error', (err) => `❌🤬❌🤬 ${err}`);
 
-    const PORT = 3000;
+    const PORT = EnvConfig().PORT;
 
     app.listen(PORT, () => {
       console.log(`Info: Server is running on http://localhost:${PORT}`);

@@ -6,12 +6,8 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-app.use('/characters', characterRouter);
-app.use('/report', reportRouter);
+app.use('/api/characters', characterRouter);
+app.use('/api/reports', reportRouter);
 
 // error handlers
 app.use(notFoundHandler);
