@@ -1,4 +1,5 @@
 import { Schema } from 'mongoose';
+import { characterSchema } from '../character/character.schema.js';
 
 export const affiliationReportSchema = new Schema(
   {
@@ -6,7 +7,8 @@ export const affiliationReportSchema = new Schema(
       type: String
     },
     characters: {
-      type: String
+      type: [characterSchema],
+      default: []
     }
   },
   {
