@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/": [
+        "src/components/*"
+      ],
+      "@utils/": [
+        "src/components/report/utils/*"
+      ],
+      "@services/": [
+        "src/services/*"
+      ],
+    },
+    // "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist"
+  ]
+}

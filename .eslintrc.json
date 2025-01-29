@@ -1,4 +1,5 @@
 {
+  "parser": "espree",
   "extends": [
     "standard"
   ],
