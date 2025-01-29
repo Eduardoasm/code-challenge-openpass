@@ -4,7 +4,7 @@ export const parseData = (planetInfo) => {
   }
 
   return planetInfo.characters.reduce((acc, curr) => {
-    console.log('info: Processing Character', curr.name);
+    console.log('Info: Processing Character', curr.name);
 
     let affiliationFound = acc.find(item => item.affiliation === curr.affiliation);
 
