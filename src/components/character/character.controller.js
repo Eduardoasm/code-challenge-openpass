@@ -11,7 +11,7 @@ class CharacterController {
         return res.status(400).json({ errors: errors.array() });
       }
       const characters = await DragonBallApiService.getCharactersByFilter({ race, affiliation });
-      res.status(200).json({ success: true, data: characters });
+      res.status(200).json({ success: true, data: race || affiliation ? characters : characters.items });
     } catch (error) {
       next(error);
     }

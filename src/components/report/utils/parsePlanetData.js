@@ -49,14 +49,19 @@ function convertToFormattedNumberString(value) {
 
   const [number, unit] = value.split(" ");
 
+  if (number === "unknown") {
+    return "0"
+  }
+  const unitToLowerCase = unit.toLowerCase();
+
   let numericValue = parseFloat(number);
 
-  if (!units[unit]) {
+  if (!units[unitToLowerCase]) {
     return "0";
   }
 
-  if (units[unit]) {
-    numericValue *= units[unit];
+  if (units[unitToLowerCase]) {
+    numericValue *= units[unitToLowerCase];
   }
 
   return numericValue.toLocaleString("de-DE");
