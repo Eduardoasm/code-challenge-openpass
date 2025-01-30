@@ -4,7 +4,8 @@ import { reportCharacterSchema } from '../reportCharacter/reportCharacter.schema
 export const reportAffiliationSchema = new Schema(
   {
     affiliation: {
-      type: String
+      type: String,
+      trim: true
     },
     characters: {
       type: [reportCharacterSchema],

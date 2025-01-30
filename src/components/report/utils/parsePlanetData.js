@@ -21,7 +21,7 @@ export const parseData = (planetInfo) => {
       ki: curr.ki,
       name: curr.name,
       race: curr.race,
-      image: curr.image
+      image: curr.image,
     });
 
     return acc;

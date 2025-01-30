@@ -6,16 +6,20 @@ export const reportCharacterSchema = new Schema(
       type: Number
     },
     name: {
-      type: String
+      type: String,
+      trim: true,
     },
     ki: {
-      type: String
+      type: String,
+      trim: true,
     },
     race: {
-      type: String
+      type: String,
+      trim: true,
     },
     image: {
-      type: String
+      type: String,
+      trim: true,
     }
   },
   {
