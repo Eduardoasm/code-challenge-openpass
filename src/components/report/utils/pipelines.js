@@ -14,12 +14,30 @@ export function sortPlanetReportPipeline(planetId) {
     {
       $addFields: {
         numberKi: {
-          $toInt: {
-            $replaceAll: {
-              input: "$affiliationReport.characters.ki",
-              find: ".",
-              replacement: ""
-            }
+          $cond: {
+            if: {
+              $and: [
+                { $ne: ["$affiliationReport.characters.ki", null] },
+                { $ne: ["$affiliationReport.characters.ki", ""] },
+                { $ne: ["$affiliationReport.characters.ki", "0"] },
+              ]
+            },
+            then: {
+              $toLong: {
+                $replaceAll: {
+                  input: {
+                    $replaceAll: {
+                      input: "$affiliationReport.characters.ki",
+                      find: ",",
+                      replacement: ""
+                    }
+                  },
+                  find: ".",
+                  replacement: ""
+                }
+              }
+            },
+            else: 0
           }
         }
       }

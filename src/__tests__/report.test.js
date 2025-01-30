@@ -7,6 +7,7 @@ import ReportController from '../components/report/report/report.controller.js'
 
 jest.mock('../components/report/report/report.model.js', () => ({
   Report: {
+    findOneAndUpdate: jest.fn(),
     create: jest.fn(),
     findOne: jest.fn(),
     aggregate: jest.fn(),
@@ -45,7 +46,7 @@ const mockResponseGetReport = {
 }
 
 describe('Report service', () => {
-  test('Creating report', async () => {
+  test('Find or create report', async () => {
     const mockData = {
       planetId: 1,
       name: 'Namek',
@@ -64,11 +65,17 @@ describe('Report service', () => {
         }
       ]
     }
-    Report.create.mockResolvedValue(mockData);
 
-    const result = await ReportService.createReport(mockData);
+    const options = {
+      new: true,
+      upsert: true,
+      useFindAndModify: false
+    }
 
-    expect(Report.create).toHaveBeenCalledWith(mockData);
+    Report.findOneAndUpdate.mockResolvedValue(mockData);
+
+    const result = await ReportService.findOneAndUpdateReport({ planetId: mockData.planetId }, mockData, options);
+
     expect(result).toEqual(mockData);
   })
 
@@ -102,7 +109,7 @@ describe('Report service', () => {
 
     const planetParseData = parseData(mockPlanetData);
 
-    Report.create.mockResolvedValue(
+    Report.findOneAndUpdate.mockResolvedValue(
       {
         planetId: mockPlanetData.id,
         name: mockPlanetData.name,
@@ -117,13 +124,7 @@ describe('Report service', () => {
 
     const reportCreated = await ReportService.getReportByPlanetId(1)
 
-    expect(Report.create).toHaveBeenCalledWith(
-      {
-        planetId: mockPlanetData.id,
-        name: mockPlanetData.name,
-        affiliationReport: planetParseData
-      }
-    );
+    expect(Report.findOneAndUpdate).toHaveBeenCalled();
 
     expect(reportCreated).toEqual(mockResponseGetReport)
   })

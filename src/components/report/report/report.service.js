@@ -7,8 +7,8 @@ class ReportService {
     this.reportModel = reportModel;
   }
 
-  async createReport(data) {
-    return Report.create(data)
+  async findOneAndUpdateReport(filter, data, options) {
+    return Report.findOneAndUpdate(filter, data, options)
   }
 
   async getReportByPlanetId(planetId) {
@@ -23,11 +23,19 @@ class ReportService {
         const planetParseData = parseData(planetInfo);
         console.log(`Info: Creating report for Planet ID: ${planetId}`);
 
-        planetReport = await this.createReport({
+        planetReport = await Report.findOneAndUpdate({
           planetId: planetInfo.id,
-          name: planetInfo.name,
-          affiliationReport: planetParseData
-        })
+        },
+          {
+            name: planetInfo.name,
+            affiliationReport: planetParseData
+          },
+          {
+            new: true,
+            upsert: true,
+            useFindAndModify: false
+          }
+        )
 
         planetReport = planetReport.toObject();
 
@@ -39,7 +47,11 @@ class ReportService {
           .map(({ _id, createdAt, updatedAt, ...affiliation }) => ({
             ...affiliation,
             characters: affiliation.characters
-              .sort((a, b) => b.ki - a.ki)
+              .sort((a, b) => {
+                const kiA = parseInt(a.ki.replace(/[.,]/g, ""), 10);
+                const kiB = parseInt(b.ki.replace(/[.,]/g, ""), 10);
+                return kiB - kiA;
+              })
               .map(({ _id, createdAt, updatedAt, characterId, ...rest }) => ({
                 id: characterId,
                 ...rest

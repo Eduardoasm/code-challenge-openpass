@@ -16,6 +16,16 @@ export const parseData = (planetInfo) => {
       acc.push(affiliationFound);
     }
 
+    if (
+      curr.ki.toLowerCase().includes('billion') ||
+      curr.ki.toLowerCase().includes('million') ||
+      curr.ki.toLowerCase().includes('trillion') ||
+      curr.ki.toLowerCase().includes('quadrillion') ||
+      curr.ki.toLowerCase().includes('unknown')
+    ) {
+      curr.ki = convertToFormattedNumberString(curr.ki)
+    }
+
     affiliationFound.characters.push({
       characterId: curr.id,
       ki: curr.ki,
@@ -27,3 +37,27 @@ export const parseData = (planetInfo) => {
     return acc;
   }, []);
 };
+
+function convertToFormattedNumberString(value) {
+  const units = {
+    'billion': 1e9,
+    'million': 1e6,
+    'thousand': 1e3,
+    'trillion': 1e12,
+    'quadrillion': 1e15,
+  };
+
+  const [number, unit] = value.split(" ");
+
+  let numericValue = parseFloat(number);
+
+  if (!units[unit]) {
+    return "0";
+  }
+
+  if (units[unit]) {
+    numericValue *= units[unit];
+  }
+
+  return numericValue.toLocaleString("de-DE");
+}
