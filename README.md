@@ -57,8 +57,8 @@ Características
 - Jest para pruebas
 
 # Endpoints de API
-- GET /api/characters?race=<race>?affiliation?<affiliation> - Obtener personajes con filtros
-- GET /api/reports/<planetId> - Obtener reporte por filtro planetId
+- GET /api/characters?race=${race}?affiliation=${affiliation} - Obtener personajes con filtros
+- GET /api/reports/${planetId} - Obtener reporte por filtro planetId
 
 # Pruebas
 ```bash
@@ -74,7 +74,7 @@ Backend
 - Docker
 
 ## Configuración Docker
-Tres configuraciones de Dockerfile:
+Dos configuraciones de Dockerfile:
 
 - Dockerfile - Configuración servicio API
 - docker-compose.yml - Orquestación de servicios
