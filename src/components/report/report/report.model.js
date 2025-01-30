@@ -11,7 +11,8 @@ export const reportSchema = new Schema(
     name: {
       type: String,
       required: ['Please insert a planet name', true],
-      unique: true
+      unique: true,
+      trim: true,
     },
     affiliationReport: {
       type: [reportAffiliationSchema],

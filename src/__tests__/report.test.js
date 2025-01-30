@@ -9,8 +9,11 @@ jest.mock('../components/report/report/report.model.js', () => ({
   Report: {
     create: jest.fn(),
     findOne: jest.fn(),
+    aggregate: jest.fn(),
   }
 }));
+
+jest.mock('../components/report/utils/pipelines.js')
 
 jest.mock('../services/dragonBallApi.js')
 
@@ -23,14 +26,14 @@ beforeEach(() => {
 });
 
 const mockResponseGetReport = {
-  planetId: 1,
+  id: 1,
   name: 'Namek',
   affiliationReport: [
     {
       affiliation: 'Z Fighter',
       characters: [
         {
-          characterId: 3,
+          id: 3,
           name: "Piccolo",
           ki: "2.000.000",
           race: "Namekian",
@@ -69,7 +72,7 @@ describe('Report service', () => {
     expect(result).toEqual(mockData);
   })
 
-  test('Call this.create report on get report planet id and return report', async () => {
+  test('Call this.create report on get report planet id and return report created', async () => {
     const mockPlanetData = {
       id: 1,
       name: 'Namek',
@@ -92,7 +95,8 @@ describe('Report service', () => {
         }
       ]
     }
-    Report.findOne.mockResolvedValue(null);
+
+    Report.aggregate.mockResolvedValue([]);
 
     DragonBallApi.getPlanetInfo.mockResolvedValue(mockPlanetData);
 
@@ -102,7 +106,12 @@ describe('Report service', () => {
       {
         planetId: mockPlanetData.id,
         name: mockPlanetData.name,
-        affiliationReport: planetParseData
+        affiliationReport: planetParseData,
+        toObject: jest.fn().mockReturnValue({
+          planetId: mockPlanetData.id,
+          name: mockPlanetData.name,
+          affiliationReport: planetParseData,
+        }),
       }
     )
 
